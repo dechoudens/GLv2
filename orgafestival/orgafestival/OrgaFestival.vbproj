@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DD83362D-5513-4B0F-A2DB-3FD04F2D1234}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>OrgaFestival.My.MyApplication</StartupObject>
+    <RootNamespace>OrgaFestival</RootNamespace>
+    <AssemblyName>OrgaFestival</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>OrgaFestival.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>OrgaFestival.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="base\Base.vb" />
+    <Compile Include="base\Selects.vb" />
+    <Compile Include="base\Inserts.vb" />
+    <Compile Include="base\Updates.vb" />
+    <Compile Include="domain\Horaire.vb" />
+    <Compile Include="domain\Joue.vb" />
+    <Compile Include="metier\modGestionScene.vb" />
+    <Compile Include="outils\ArtisteComparer.vb" />
+    <Compile Include="outils\SceneComparer.vb" />
+    <Compile Include="presentation\frmCreerUtilisateur.Designer.vb">
+      <DependentUpon>frmCreerUtilisateur.vb</DependentUpon>
+    </Compile>
+    <Compile Include="presentation\frmCreerUtilisateur.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\frmEnregistrerHoraire.Designer.vb">
+      <DependentUpon>frmEnregistrerHoraire.vb</DependentUpon>
+    </Compile>
+    <Compile Include="presentation\frmEnregistrerHoraire.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\frmPlanning.Designer.vb">
+      <DependentUpon>frmPlanning.vb</DependentUpon>
+    </Compile>
+    <Compile Include="presentation\frmPlanning.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\style\clsMenuRenderer.vb" />
+    <Compile Include="presentation\style\clsToolstripRenderer.vb" />
+    <Compile Include="domain\Artiste.vb" />
+    <Compile Include="domain\Festival.vb" />
+    <Compile Include="domain\Genre.vb" />
+    <Compile Include="domain\Utilisateur.vb" />
+    <Compile Include="presentation\frmCreerArtiste.Designer.vb">
+      <DependentUpon>frmCreerArtiste.vb</DependentUpon>
+    </Compile>
+    <Compile Include="presentation\frmCreerArtiste.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\frmModifierPlanning.Designer.vb">
+      <DependentUpon>frmModifierPlanning.vb</DependentUpon>
+    </Compile>
+    <Compile Include="presentation\frmModifierPlanning.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\frmProfilArtiste.Designer.vb">
+      <DependentUpon>frmProfilArtiste.vb</DependentUpon>
+    </Compile>
+    <Compile Include="presentation\frmProfilArtiste.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\frmSupprimerArtisteScene.Designer.vb">
+      <DependentUpon>frmSupprimerArtisteScene.vb</DependentUpon>
+    </Compile>
+    <Compile Include="presentation\frmSupprimerArtisteScene.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\frmAjouterArtisteScene.Designer.vb">
+      <DependentUpon>frmAjouterArtisteScene.vb</DependentUpon>
+    </Compile>
+    <Compile Include="presentation\frmAjouterArtisteScene.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\frmAjouterScene.Designer.vb">
+      <DependentUpon>frmAjouterScene.vb</DependentUpon>
+    </Compile>
+    <Compile Include="presentation\frmAjouterScene.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\frmConnection.Designer.vb">
+      <DependentUpon>frmConnection.vb</DependentUpon>
+    </Compile>
+    <Compile Include="presentation\frmConnection.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\frmFestival.Designer.vb">
+      <DependentUpon>frmFestival.vb</DependentUpon>
+    </Compile>
+    <Compile Include="presentation\frmFestival.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\frmGestionScene.Designer.vb">
+      <DependentUpon>frmGestionScene.vb</DependentUpon>
+    </Compile>
+    <Compile Include="presentation\frmGestionScene.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\frmPrincipal.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\frmPrincipal.Designer.vb">
+      <DependentUpon>frmPrincipal.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="presentation\style\clsColors.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="metier\Controller.vb" />
+    <Compile Include="domain\Scene.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="presentation\frmCreerArtiste.resx">
+      <DependentUpon>frmCreerArtiste.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\frmCreerUtilisateur.resx">
+      <DependentUpon>frmCreerUtilisateur.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\frmEnregistrerHoraire.resx">
+      <DependentUpon>frmEnregistrerHoraire.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\frmModifierPlanning.resx">
+      <DependentUpon>frmModifierPlanning.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\frmPlanning.resx">
+      <DependentUpon>frmPlanning.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\frmProfilArtiste.resx">
+      <DependentUpon>frmProfilArtiste.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\frmSupprimerArtisteScene.resx">
+      <DependentUpon>frmSupprimerArtisteScene.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\frmAjouterArtisteScene.resx">
+      <DependentUpon>frmAjouterArtisteScene.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\frmAjouterScene.resx">
+      <DependentUpon>frmAjouterScene.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\frmConnection.resx">
+      <DependentUpon>frmConnection.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\frmFestival.resx">
+      <DependentUpon>frmFestival.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\frmGestionScene.resx">
+      <DependentUpon>frmGestionScene.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presentation\frmPrincipal.resx">
+      <DependentUpon>frmPrincipal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

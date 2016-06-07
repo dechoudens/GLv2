@@ -1,0 +1,54 @@
+-- ====================================================================
+-- Auteur : Antoine de Choudens
+-- Script : 01_OrgaFestival.sql
+-- Objet  : Création BDD OrgaFestival sur SGBD Oracle en Local (HEGLOCAL) 
+-- ====================================================================
+
+SET ECHO ON
+SET LINESIZE 200
+SET PAGESIZE 60
+
+-- Création des utilisateurs en tant que System
+SPOOL .\Logs\02_utilisateurs_OrgaFestival.log
+@.\02_utilisateurs_OrgaFestival.sql
+SPOOL OFF
+
+-- Connexion à HEGLOCAL en tant que OrgaFestival_data (propirétaires des objets de schéma)
+--CONNECT OrgaFestival_data/OrgaFestival_data@XE
+CONNECT OrgaFestival_data/OrgaFestival_data@HEGLOCAL
+-- Création des tables
+SPOOL .\Logs\03_tables_OrgaFestival.log
+@.\03_tables_OrgaFestival.sql
+SPOOL OFF
+
+-- Chargement des données
+SPOOL .\Logs\04_insertions_OrgaFestival.log
+@.\04_insertions_OrgaFestival.sql;
+SPOOL OFF
+
+-- Création des vues
+SPOOL .\Logs\05_vues_OrgaFestival.log
+@.\05_vues_OrgaFestival.sql
+SPOOL OFF
+
+-- Création des triggers pour les clefs primaires
+SPOOL .\Logs\06_triggers_OrgaFestival.log
+@.\06_triggers_OrgaFestival.sql;
+SPOOL OFF
+
+-- Création des packages
+SPOOL .\Logs\07_package_OrgaFestival.log
+@.\07_package_OrgaFestival.sql;
+SPOOL OFF
+
+-- Connexion à HEGLOCAL en tant que system
+CONNECT system/manager@XE
+
+-- Création des synonymes
+SPOOL .\Logs\08_synonymes_OrgaFestival.log
+@.\08_synonymes_OrgaFestival.sql;
+SPOOL OFF
+
+SET ECHO OFF
+
+EXIT;

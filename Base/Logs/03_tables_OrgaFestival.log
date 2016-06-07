@@ -1,0 +1,192 @@
+SQL> @.\03_tables_OrgaFestival.sql
+SQL> -- ====================================================================
+SQL> -- Auteur : Antoine de Choudens
+SQL> -- Script : 04_insertions_OrgaFestival.sql
+SQL> -- Objet  : Insertions de données sur les tables OrgaFestival
+SQL> -- ====================================================================
+SQL> -- ====================================================
+SQL> -- Drop table
+SQL> -- ====================================================
+SQL> DROP TABLE org_artiste CASCADE CONSTRAINT;
+DROP TABLE org_artiste CASCADE CONSTRAINT
+           *
+ERREUR à la ligne 1 :
+ORA-00942: Table ou vue inexistante 
+
+
+SQL> DROP TABLE org_scene CASCADE CONSTRAINT;
+DROP TABLE org_scene CASCADE CONSTRAINT
+           *
+ERREUR à la ligne 1 :
+ORA-00942: Table ou vue inexistante 
+
+
+SQL> DROP TABLE org_joue CASCADE CONSTRAINT;
+DROP TABLE org_joue CASCADE CONSTRAINT
+           *
+ERREUR à la ligne 1 :
+ORA-00942: Table ou vue inexistante 
+
+
+SQL> DROP TABLE org_festival CASCADE CONSTRAINT;
+DROP TABLE org_festival CASCADE CONSTRAINT
+           *
+ERREUR à la ligne 1 :
+ORA-00942: Table ou vue inexistante 
+
+
+SQL> DROP TABLE org_utilisateur CASCADE CONSTRAINT;
+DROP TABLE org_utilisateur CASCADE CONSTRAINT
+           *
+ERREUR à la ligne 1 :
+ORA-00942: Table ou vue inexistante 
+
+
+SQL> DROP TABLE org_participe CASCADE CONSTRAINT;
+DROP TABLE org_participe CASCADE CONSTRAINT
+           *
+ERREUR à la ligne 1 :
+ORA-00942: Table ou vue inexistante 
+
+
+SQL> DROP TABLE org_administre CASCADE CONSTRAINT;
+DROP TABLE org_administre CASCADE CONSTRAINT
+           *
+ERREUR à la ligne 1 :
+ORA-00942: Table ou vue inexistante 
+
+
+SQL> DROP TABLE org_genre CASCADE CONSTRAINT;
+DROP TABLE org_genre CASCADE CONSTRAINT
+           *
+ERREUR à la ligne 1 :
+ORA-00942: Table ou vue inexistante 
+
+
+SQL> 
+SQL> 
+SQL> -- ====================================================
+SQL> -- Table : org_artiste
+SQL> -- ====================================================
+SQL> CREATE TABLE org_artiste(
+  2  	    art_no	      NUMBER(8) CONSTRAINT pk_art_no PRIMARY KEY,
+  3  	    art_nom	      VARCHAR2(255) CONSTRAINT nn_art_nom NOT NULL,
+  4  	    art_biographie    VARCHAR2(1000),
+  5  	    art_gen_no	      NUMBER(8)
+  6  );
+
+Table créée.
+
+SQL> 
+SQL> -- ====================================================
+SQL> -- Table : org_scene
+SQL> -- ====================================================
+SQL> CREATE TABLE org_scene (
+  2  	    sce_no	    NUMBER(8) CONSTRAINT pk_sce_no PRIMARY KEY,
+  3  	    sce_nom	    VARCHAR2(255) CONSTRAINT nn_sce_nom NOT NULL,
+  4  	    sce_description VARCHAR2(1000),
+  5  	    sce_capacite    NUMBER(8),
+  6  	    sce_dimensionX  NUMBER(8),
+  7  	    sce_dimensionY  NUMBER(8),
+  8  	    sce_heureDebut  DATE CONSTRAINT nn_sce_heureDebut NOT NULL,
+  9  	    sce_heureFin    DATE CONSTRAINT nn_sce_heureFin NOT NULL,
+ 10  	    sce_fes_no	    NUMBER(8)
+ 11  );
+
+Table créée.
+
+SQL> 
+SQL> -- ====================================================
+SQL> -- Table : org_festival
+SQL> -- ====================================================
+SQL> CREATE TABLE org_festival (
+  2  	    fes_no	    NUMBER(8) CONSTRAINT pk_fes_no PRIMARY KEY,
+  3  	    fes_nom	    VARCHAR2(255) CONSTRAINT nn_fes_nom NOT NULL,
+  4  	    fes_location    VARCHAR2(255) CONSTRAINT nn_fes_location NOT NULL,
+  5  	    fes_dateDebut   DATE,
+  6  	    fes_dateFin     DATE,
+  7  	    fes_uti_no	    NUMBER(8)
+  8  );
+
+Table créée.
+
+SQL> 
+SQL> -- ====================================================
+SQL> -- Table : org_joue
+SQL> -- ====================================================
+SQL> CREATE TABLE org_joue (
+  2  	    joue_no		     NUMBER(8),
+  3  	    joue_heure		     DATE CONSTRAINT nn_joue_heure NOT NULL,
+  4  	    joue_art_no 	     NUMBER(8) NOT NULL CONSTRAINT fk_org_joue_art REFERENCES org_artiste (art_no),
+  5  	    joue_sce_no 	     NUMBER(8) NOT NULL CONSTRAINT fk_org_joue_sce REFERENCES org_scene(sce_no)
+  6  );
+
+Table créée.
+
+SQL> 
+SQL> -- ====================================================
+SQL> -- Table : org_utilisateur
+SQL> -- ====================================================
+SQL> CREATE TABLE org_utilisateur (
+  2  	    uti_no		  NUMBER(8) CONSTRAINT pk_uti_no PRIMARY KEY,
+  3  	    uti_identifiant	  VARCHAR2(30) CONSTRAINT nn_uti_identifiant NOT NULL,
+  4  	    uti_mdp		  VARCHAR2(30) CONSTRAINT nn_uti_mdp NOT NULL,
+  5  	    uti_nom		  VARCHAR2(255),
+  6  	    uti_prenom		  VARCHAR2(255),
+  7  	    uti_adresse 	  VARCHAR2(255),
+  8  	    uti_telephone	  VARCHAR2(20)
+  9  );
+
+Table créée.
+
+SQL> 
+SQL> -- ====================================================
+SQL> -- Table : org_participe
+SQL> -- ====================================================
+SQL> CREATE TABLE org_participe (
+  2  	    par_art_no		    NUMBER(8) NOT NULL CONSTRAINT fk_org_par_art REFERENCES org_artiste (art_no),
+  3  	    par_fes_no		    NUMBER(8) NOT NULL CONSTRAINT fk_org_par_fes REFERENCES org_festival(fes_no),
+  4  	    CONSTRAINT pk_org_participe PRIMARY KEY (par_art_no, par_fes_no)
+  5  );
+
+Table créée.
+
+SQL> 
+SQL> -- ====================================================
+SQL> -- Table : org_possede
+SQL> -- ====================================================
+SQL> CREATE TABLE org_administre (
+  2  	    adm_uti_no		    NUMBER(8) NOT NULL CONSTRAINT fk_org_adm_uti REFERENCES org_utilisateur (uti_no),
+  3  	    adm_fes_no		    NUMBER(8) NOT NULL CONSTRAINT fk_org_adm_fes REFERENCES org_festival(fes_no),
+  4  	    CONSTRAINT pk_org_administre PRIMARY KEY (adm_uti_no, adm_fes_no)
+  5  );
+
+Table créée.
+
+SQL> 
+SQL> -- ====================================================
+SQL> -- Table : org_genre
+SQL> -- ====================================================
+SQL> CREATE TABLE org_genre (
+  2  	    gen_no	    NUMBER(8) CONSTRAINT pk_gen_no PRIMARY KEY,
+  3  	    gen_nom	    VARCHAR2(30)
+  4  );
+
+Table créée.
+
+SQL> 
+SQL> -- Ajout des foreign key
+SQL> ALTER TABLE org_artiste ADD CONSTRAINT fk_org_art_gen FOREIGN KEY (art_gen_no) REFERENCES org_genre (gen_no);
+
+Table modifiée.
+
+SQL> ALTER TABLE org_scene ADD CONSTRAINT fk_org_sce_fes FOREIGN KEY (sce_fes_no) REFERENCES org_festival (fes_no);
+
+Table modifiée.
+
+SQL> ALTER TABLE org_festival ADD CONSTRAINT fk_org_fes_uti FOREIGN KEY (fes_uti_no) REFERENCES org_utilisateur (uti_no);
+
+Table modifiée.
+
+SQL> 
+SQL> SPOOL OFF

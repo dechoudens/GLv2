@@ -1,0 +1,153 @@
+SQL> @.\02_utilisateurs_OrgaFestival.sql
+SQL> -- ====================================================================
+SQL> -- Auteur : Antoine de Choudens
+SQL> -- Script : 02_utilisateurs_OrgaFestival.sql
+SQL> -- Objet  : Création des utilisateurs BDD OrgaFestival sur SGBD Oracle en Local (HEGLOCAL)
+SQL> -- ====================================================================
+SQL> 
+SQL> -- =============================================================================================
+SQL> -- Suppression des rôles, utilisateurs et profil
+SQL> -- =============================================================================================
+SQL> -- Suppression des utilisateurs
+SQL> DROP USER OrgaFestival_data CASCADE;
+DROP USER OrgaFestival_data CASCADE
+          *
+ERREUR à la ligne 1 :
+ORA-01918: l'utilisateur 'ORGAFESTIVAL_DATA' n'existe pas 
+
+
+SQL> DROP USER OrgaFestival_user CASCADE;
+DROP USER OrgaFestival_user CASCADE
+*
+ERREUR à la ligne 1 :
+ORA-01940: impossible de supprimer un utilisateur qui est connecté 
+
+
+SQL> 
+SQL> -- Suppression des rôles
+SQL> DROP ROLE role_OrgaFestival_data CASCADE;
+DROP ROLE role_OrgaFestival_data CASCADE
+          *
+ERREUR à la ligne 1 :
+ORA-01919: le rôle 'ROLE_ORGAFESTIVAL_DATA' n'existe pas 
+
+
+SQL> DROP ROLE role_OrgaFestival_user CASCADE;
+DROP ROLE role_OrgaFestival_user CASCADE
+          *
+ERREUR à la ligne 1 :
+ORA-01919: le rôle 'ROLE_ORGAFESTIVAL_USER' n'existe pas 
+
+
+SQL> 
+SQL> -- Suppression du profil
+SQL> DROP PROFILE OrgaFestival_profil;
+DROP PROFILE OrgaFestival_profil
+*
+ERREUR à la ligne 1 :
+ORA-02382: Le profil ORGAFESTIVAL_PROFIL a des utilisateurs, impossible d'effectuer la suppression sans CASCADE 
+
+
+SQL> 
+SQL> -- =============================================================================================
+SQL> -- Création du profil
+SQL> -- =============================================================================================
+SQL> -- Creation du profil OrgaFestival_profil
+SQL> CREATE PROFILE OrgaFestival_profil LIMIT
+  2    SESSIONS_PER_USER 3
+  3    FAILED_LOGIN_ATTEMPTS 3
+  4    PASSWORD_LOCK_TIME 1/24
+  5    PASSWORD_LIFE_TIME 180
+  6    PASSWORD_REUSE_TIME 180
+  7    PASSWORD_REUSE_MAX UNLIMITED
+  8    PASSWORD_GRACE_TIME 7;
+CREATE PROFILE OrgaFestival_profil LIMIT
+*
+ERREUR à la ligne 1 :
+ORA-02379: le profil ORGAFESTIVAL_PROFIL existe déjà 
+
+
+SQL> 
+SQL> -- =============================================================================================
+SQL> -- Création du rôle role_OrgaFestival_data (rôle de l'utilisateur propriétaire des objets de la base)
+SQL> -- =============================================================================================
+SQL> -- Creation du rôle role_OrgaFestival_data
+SQL> CREATE ROLE role_OrgaFestival_data;
+
+Rôle créé.
+
+SQL> 
+SQL> -- droit de se connecter à la BDD
+SQL> GRANT CONNECT TO role_OrgaFestival_data;
+
+Autorisation de privilèges (GRANT) acceptée.
+
+SQL> 
+SQL> -- droit de créer des triggers, séquence, tables, packages, ...
+SQL> GRANT RESOURCE TO role_OrgaFestival_data;
+
+Autorisation de privilèges (GRANT) acceptée.
+
+SQL> 
+SQL> -- droit de créer des vues
+SQL> GRANT CREATE VIEW TO role_OrgaFestival_data;
+
+Autorisation de privilèges (GRANT) acceptée.
+
+SQL> 
+SQL> 
+SQL> -- ===============================
+SQL> -- Création du rôle role_OrgaFestival_user (rôle de l'utilisateur de l'application)
+SQL> -- ===============================
+SQL> -- Creation du rôle role_OrgaFestival_user
+SQL> CREATE ROLE role_OrgaFestival_user;
+
+Rôle créé.
+
+SQL> 
+SQL> -- droit de se connecter à la BDD
+SQL> GRANT CREATE SESSION TO role_OrgaFestival_user;
+
+Autorisation de privilèges (GRANT) acceptée.
+
+SQL> 
+SQL> -- ===================================
+SQL> -- Création de l'utilisateur OrgaFestival_data (propriétaire des objets de schéma de la base)
+SQL> -- ===================================
+SQL> -- Creation de l'utilisateur OrgaFestival_data
+SQL> CREATE USER OrgaFestival_data
+  2    PROFILE OrgaFestival_profil
+  3    IDENTIFIED BY OrgaFestival_data
+  4    DEFAULT TABLESPACE USERS
+  5    TEMPORARY TABLESPACE TEMP
+  6  ;
+
+Utilisateur créé.
+
+SQL> GRANT role_OrgaFestival_data TO OrgaFestival_data;
+
+Autorisation de privilèges (GRANT) acceptée.
+
+SQL> ALTER USER OrgaFestival_data quota unlimited ON USERS;
+
+Utilisateur modifié.
+
+SQL> 
+SQL> --===================================
+SQL> --Création de l'utilisateur OrgaFestival_user (utilisateur de l'application)
+SQL> --===================================
+SQL> CREATE USER OrgaFestival_user
+  2    PROFILE OrgaFestival_profil
+  3    IDENTIFIED BY OrgaFestival_user
+  4  ;
+CREATE USER OrgaFestival_user
+            *
+ERREUR à la ligne 1 :
+ORA-01920: nom utilisateur 'ORGAFESTIVAL_USER' en conflit avec autre nom utilisateur ou de rôle 
+
+
+SQL> GRANT role_OrgaFestival_user TO OrgaFestival_user;
+
+Autorisation de privilèges (GRANT) acceptée.
+
+SQL> SPOOL OFF

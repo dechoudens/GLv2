@@ -1,0 +1,47 @@
+SQL> @.\07_package_OrgaFestival.sql;
+SQL> create or replace package pkg_horaire
+  2  AS
+  3  	    FUNCTION isFreeShift(sce_no IN NUMBER, i_heure IN DATE)RETURN BOOLEAN;
+  4  
+  5  END pkg_horaire;
+  6  /
+
+Package créé.
+
+SQL> create or replace package body pkg_horaire
+  2  AS
+  3  
+  4  FUNCTION isFreeShift(i_sce_nom IN VARCHAR2, i_heure IN DATE)RETURN BOOLEAN
+  5  AS
+  6  	      v_Hdebut org_scene.sce_heuredebut%TYPE;
+  7  	      v_Hfin   org_scene.sce_heuredebut%TYPE;
+  8  	      CURSOR cur_planning_scene
+  9  	      IS
+ 10  		     SELECT * FROM vw_planning_scene
+ 11  		     WHERE Nom LIKE i_sce_nom
+ 12  BEGIN
+ 13  	      SELECT sce_heuredebut, sce_heuredebut INTO v_Hdebut, v_Hfin FROM org_scene;
+ 14  
+ 15  	     FOR planning_rec
+ 16  	       IN cur_planning_scene
+ 17  	       LOOP
+ 18  		 IF i_heure = planning_rec.Heure THEN
+ 19  		   RETURN FALSE;
+ 20  	       END LOOP;
+ 21  
+ 22  	      RETURN TRUE;
+ 23  
+ 24  END isFreeShift;
+ 25  
+ 26  END pkg_horaire;
+ 27  /
+
+Avertissement : Corps de package créé avec erreurs de compilation.
+
+SQL> GRANT EXECUTE ON pkg_horaire TO role_OrgaFestival_user;
+
+Autorisation de privilèges (GRANT) acceptée.
+
+SQL> 
+SQL> 
+SQL> SPOOL OFF

@@ -1,0 +1,107 @@
+SQL> @.\06_triggers_OrgaFestival.sql;
+SQL> -- ====================================================================
+SQL> -- Auteur : Antoine de Choudens
+SQL> -- Script : 06_triggers_OrgaFestival.sql
+SQL> -- Objet  : Création des triggers OrgaFestival sur SGBD Oracle en Local (HEGLOCAL)
+SQL> 
+SQL> -- ====================================================
+SQL> -- Trigger Artiste
+SQL> -- ====================================================
+SQL> CREATE OR REPLACE TRIGGER	tr_artiste
+  2    before insert on org_artiste
+  3    for each row
+  4  begin
+  5  	 select sq_org_artiste.nextval into :NEW.art_no from dual;
+  6  end;
+  7  
+  8  /
+
+Déclencheur créé.
+
+SQL> ALTER TRIGGER  tr_artiste ENABLE
+  2  /
+
+Déclencheur modifié.
+
+SQL> 
+SQL> -- ====================================================
+SQL> -- Trigger Scene
+SQL> -- ====================================================
+SQL> CREATE OR REPLACE TRIGGER	tr_scene
+  2    before insert on org_scene
+  3    for each row
+  4  begin
+  5  	 select sq_org_scene.nextval into :NEW.sce_no from dual;
+  6  end;
+  7  
+  8  /
+
+Déclencheur créé.
+
+SQL> ALTER TRIGGER  tr_scene ENABLE
+  2  /
+
+Déclencheur modifié.
+
+SQL> -- ====================================================
+SQL> -- Trigger Festival
+SQL> -- ====================================================
+SQL> CREATE OR REPLACE TRIGGER	tr_festival
+  2    before insert on org_festival
+  3    for each row
+  4  begin
+  5  	 select sq_org_festival.nextval into :NEW.fes_no from dual;
+  6  end;
+  7  
+  8  /
+
+Déclencheur créé.
+
+SQL> ALTER TRIGGER  tr_festival ENABLE
+  2  /
+
+Déclencheur modifié.
+
+SQL> 
+SQL> -- ====================================================
+SQL> -- Trigger Joue
+SQL> -- ====================================================
+SQL> CREATE OR REPLACE TRIGGER	tr_joue
+  2    before insert on org_joue
+  3    for each row
+  4  begin
+  5  	 select sq_org_joue.nextval into :NEW.joue_no from dual;
+  6  end;
+  7  
+  8  /
+
+Déclencheur créé.
+
+SQL> ALTER TRIGGER  tr_joue ENABLE
+  2  /
+
+Déclencheur modifié.
+
+SQL> 
+SQL> -- ====================================================
+SQL> -- Trigger Utilisateur
+SQL> -- ====================================================
+SQL> CREATE OR REPLACE TRIGGER	tr_utilisateur
+  2    before insert on org_utilisateur
+  3    for each row
+  4  begin
+  5  	 select sq_org_utilisateur.nextval into :NEW.uti_no from dual;
+  6  end;
+  7  
+  8  /
+
+Déclencheur créé.
+
+SQL> ALTER TRIGGER  tr_utilisateur ENABLE
+  2  /
+
+Déclencheur modifié.
+
+SQL> 
+SQL> 
+SQL> SPOOL OFF

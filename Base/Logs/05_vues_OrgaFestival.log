@@ -1,0 +1,188 @@
+SQL> @.\05_vues_OrgaFestival.sql
+SQL> -- ======================================================================
+SQL> --  Auteur : Antoine de Choudens
+SQL> --  Script: 05_vues_OrgaFestival.sql
+SQL> --  Objet : Création des vues schéma de la base OrgaFestival
+SQL> -- ======================================================================
+SQL> 
+SQL> -- ====================================================
+SQL> -- Création des VUES
+SQL> -- ====================================================
+SQL> -- ====================================================
+SQL> -- Vue d'affichage des scene
+SQL> -- 		+ le nom de leur festival
+SQL> -- ====================================================
+SQL> CREATE OR REPLACE VIEW vw_scene
+  2  (Festival, Nom, Descriptions, Capacite, Dimensions)
+  3  AS
+  4  	    SELECT fes_nom, sce_nom, sce_description, sce_capacite, sce_dimensionX || 'X' || sce_dimensionY
+  5  	    FROM org_scene
+  6  	    JOIN org_festival ON sce_fes_no = fes_no
+  7  	    ORDER BY fes_nom
+  8  ;
+
+Vue créée.
+
+SQL> GRANT SELECT, INSERT, UPDATE, DELETE ON vw_scene TO OrgaFestival_user;
+
+Autorisation de privilèges (GRANT) acceptée.
+
+SQL> 
+SQL> 
+SQL> -- ====================================================
+SQL> -- Vue d'affichage des scenes
+SQL> -- ====================================================
+SQL> CREATE OR REPLACE VIEW vw_ObjScene
+  2  (Numero, Nom, DescriptionScene, Capacite, DimensionX, DimensionY, HeureDebut, HeureFin, Festival)
+  3  AS
+  4  	    SELECT *
+  5  	    FROM org_scene
+  6  ;
+
+Vue créée.
+
+SQL> GRANT SELECT, INSERT, UPDATE, DELETE ON vw_ObjScene TO OrgaFestival_user;
+
+Autorisation de privilèges (GRANT) acceptée.
+
+SQL> 
+SQL> 
+SQL> -- ====================================================
+SQL> -- Vue d'affichage des artistes
+SQL> -- ====================================================
+SQL> CREATE OR REPLACE VIEW vw_artistes
+  2  (Numero, Nom, Biographie, Genre)
+  3  AS
+  4  	    SELECT art_no, art_nom, art_biographie, art_gen_no
+  5  	    FROM org_artiste
+  6  	    JOIN org_genre ON art_gen_no = gen_no
+  7  ;
+
+Vue créée.
+
+SQL> GRANT SELECT, INSERT, UPDATE, DELETE ON vw_artistes TO OrgaFestival_user;
+
+Autorisation de privilèges (GRANT) acceptée.
+
+SQL> 
+SQL> 
+SQL> -- ====================================================
+SQL> -- Vue d'affichage des utilistateurs
+SQL> -- ====================================================
+SQL> CREATE OR REPLACE VIEW vw_utilisateurs
+  2  (Numero, Identifiant, MDP, Nom, Prenom, Adresse, Telephone)
+  3  AS
+  4  	      SELECT *
+  5  	      FROM org_utilisateur
+  6  ;
+
+Vue créée.
+
+SQL> GRANT SELECT, INSERT, UPDATE, DELETE ON vw_utilisateurs TO OrgaFestival_user;
+
+Autorisation de privilèges (GRANT) acceptée.
+
+SQL> 
+SQL> 
+SQL> -- ====================================================
+SQL> -- Vue d'affichage des festivals
+SQL> -- ====================================================
+SQL> CREATE OR REPLACE VIEW vw_festivals
+  2  (Numero, Nom, Location, dateDebut, dateFin, utilisateur)
+  3  AS
+  4  	    SELECT *
+  5  	    FROM org_festival
+  6  ;
+
+Vue créée.
+
+SQL> GRANT SELECT, INSERT, UPDATE, DELETE ON vw_festivals TO OrgaFestival_user;
+
+Autorisation de privilèges (GRANT) acceptée.
+
+SQL> 
+SQL> 
+SQL> -- ====================================================
+SQL> -- Vue d'affichage du planning des artistes
+SQL> -- 	      - par artistes
+SQL> -- 	      - par scène
+SQL> -- 	      - par heure
+SQL> -- ====================================================
+SQL> CREATE OR REPLACE VIEW vw_planning_scene
+  2  (Artiste, Scene, Heure, Festival)
+  3  AS
+  4  	    SELECT art_nom, sce_nom, TO_CHAR(joue_heure, 'DD-MM-YYYY HH24:MI'), fes_nom
+  5  	    FROM org_artiste
+  6  	    JOIN org_joue ON art_no = joue_art_no
+  7  	    JOIN org_scene ON sce_no = joue_sce_no
+  8  	    JOIN org_festival ON fes_no = sce_fes_no
+  9  	    ORDER BY sce_nom, joue_heure, art_nom, fes_nom
+ 10  ;
+
+Vue créée.
+
+SQL> GRANT SELECT, INSERT, UPDATE, DELETE ON vw_planning_scene TO OrgaFestival_user;
+
+Autorisation de privilèges (GRANT) acceptée.
+
+SQL> 
+SQL> -- ====================================================
+SQL> -- Vue de la participation des artistes aux festivals
+SQL> -- ====================================================
+SQL> CREATE OR REPLACE VIEW vw_artiste_festival
+  2  (Nom, Festival)
+  3  AS
+  4  	    SELECT art_nom, fes_nom
+  5  	    FROM org_participe
+  6  	    JOIN org_artiste ON par_art_no = art_no
+  7  	    JOIN org_festival ON fes_no = par_fes_no
+  8  	    ORDER BY fes_nom, art_nom
+  9  ;
+
+Vue créée.
+
+SQL> GRANT SELECT, INSERT, UPDATE, DELETE ON vw_artiste_festival TO OrgaFestival_user;
+
+Autorisation de privilèges (GRANT) acceptée.
+
+SQL> 
+SQL> -- ====================================================
+SQL> -- Vue d'affichage des genres
+SQL> -- ====================================================
+SQL> CREATE OR REPLACE VIEW vw_genres
+  2  (Numero, Nom)
+  3  AS
+  4  	    SELECT *
+  5  	    FROM org_genre
+  6  ;
+
+Vue créée.
+
+SQL> GRANT SELECT, INSERT, UPDATE, DELETE ON vw_genres TO OrgaFestival_user;
+
+Autorisation de privilèges (GRANT) acceptée.
+
+SQL> 
+SQL> 
+SQL> -- ====================================================
+SQL> -- Vue de l'horaire de chaque artiste par festival
+SQL> -- ====================================================
+SQL> CREATE OR REPLACE VIEW vw_joue
+  2  (Numero, Heure, Artiste, Scene)
+  3  AS
+  4  	    SELECT *
+  5  	    FROM org_joue
+  6  ;
+
+Vue créée.
+
+SQL> GRANT SELECT, INSERT, UPDATE, DELETE ON vw_joue TO OrgaFestival_user;
+
+Autorisation de privilèges (GRANT) acceptée.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> SPOOL OFF

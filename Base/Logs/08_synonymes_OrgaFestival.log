@@ -1,0 +1,68 @@
+SQL> @.\08_synonymes_OrgaFestival.sql;
+SQL> -- ======================================================================
+SQL> --  Script: 07_synonymes_OrgaFestival.sql
+SQL> --  Objet : Création des synonymes de la base OrgaFestival
+SQL> -- ======================================================================
+SQL> 
+SQL> CREATE OR REPLACE SYNONYM OrgaFestival_user.vw_scene FOR OrgaFestival_data.vw_scene;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM OrgaFestival_user.vw_artistes FOR OrgaFestival_data.vw_artistes;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM OrgaFestival_user.vw_planning_scene FOR OrgaFestival_data.vw_planning_scene;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM OrgaFestival_user.vw_artiste_festival FOR OrgaFestival_data.vw_artiste_festival;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM OrgaFestival_user.vw_festivals FOR OrgaFestival_data.vw_festivals;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM OrgaFestival_user.vw_utilisateurs FOR OrgaFestival_data.vw_utilisateurs;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM OrgaFestival_user.vw_ObjScene FOR OrgaFestival_data.vw_ObjScene;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM OrgaFestival_user.vw_genres FOR OrgaFestival_data.vw_genres;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM OrgaFestival_user.vw_joue FOR OrgaFestival_data.vw_joue;
+
+Synonyme créé.
+
+SQL> 
+SQL> CREATE OR REPLACE SYNONYM OrgaFestival_user.sq_org_utilisateur FOR OrgaFestival_data.sq_org_utilisateur;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM OrgaFestival_user.sq_org_festival FOR OrgaFestival_data.sq_org_festival;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM OrgaFestival_user.sq_org_artiste FOR OrgaFestival_data.sq_org_artiste;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM OrgaFestival_user.sq_org_genre FOR OrgaFestival_data.sq_org_genre;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM OrgaFestival_user.sq_org_scene FOR OrgaFestival_data.sq_org_scene;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM OrgaFestival_user.sq_org_joue FOR OrgaFestival_data.sq_org_joue;
+
+Synonyme créé.
+
+SQL> SPOOL OFF

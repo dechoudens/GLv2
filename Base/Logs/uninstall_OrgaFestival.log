@@ -1,0 +1,22 @@
+
+Utilisateur supprimé.
+
+DROP USER OrgaFestival_user CASCADE
+*
+ERREUR à la ligne 1 :
+ORA-01940: impossible de supprimer un utilisateur qui est connecté 
+
+
+
+Rôle supprimé.
+
+
+Rôle supprimé.
+
+DROP PROFILE OrgaFestival_profil
+*
+ERREUR à la ligne 1 :
+ORA-02382: Le profil ORGAFESTIVAL_PROFIL a des utilisateurs, impossible 
+d'effectuer la suppression sans CASCADE 
+
+
